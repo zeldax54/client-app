@@ -1,0 +1,71 @@
+<div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+  <div class="flex flex-column align-items-center justify-content-center">
+      <img src="assets/layout/images/{{layoutService.config.colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.svg" alt="Logo" class="mb-5 w-6rem flex-shrink-0">
+      <div style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
+          <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">
+
+            <div class="text-center mb-5">
+              <div class="text-900 text-3xl font-medium mb-3">Welcome!</div>
+              <span class="text-600 font-medium">Sign up to continue</span>
+            </div>
+              <div>
+
+                <label for="name1" class="block text-900 text-xl font-medium mb-2">Name</label>
+                <input id="name1" [(ngModel)]="name" type="text" placeholder="Name" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" pattern="^[a-zA-Z]+$" required="" (ngModelChange)="validateForm()">
+
+                <label for="lastname1" class="block text-900 text-xl font-medium mb-2">Last name</label>
+                <input id="lastname1" [(ngModel)]="lastname" type="text" placeholder="Last name" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" pattern="^[a-zA-Z]+$" required="" (ngModelChange)="validateForm()">
+
+
+                  <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
+                  <input id="email1" [(ngModel)]="email" type="text" placeholder="Email address" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required (ngModelChange)="validateForm()">
+
+
+                  <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
+                  <p-password id="password1" [(ngModel)]="password" placeholder="Password" [toggleMask]="false" styleClass="mb-5" inputStyleClass="w-full p-3 md:w-30rem" required (ngModelChange)="validateForm();checkPassword();" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$"></p-password>
+
+                  <div class="grid formgrid">
+                    <div class="col-12 md:col-12">
+                      <div class="field-checkbox">
+                        <p-checkbox  value="8 character lenght" [(ngModel)]="password8char" id="ny" [disabled]="true" [binary]="true"></p-checkbox>
+                        <label for="ny">8 character lenght</label>
+                      </div>
+                    </div>
+                    <div class="col-12 md:col-12">
+                      <div class="field-checkbox">
+                        <p-checkbox  value="Uppercase character" [(ngModel)]="upperCharacter" id="sf" [disabled]="true" [binary]="true"></p-checkbox>
+                        <label for="sf">Uppercase character</label>
+                      </div>
+                    </div>
+                    <div class="col-12 md:col-12">
+                      <div class="field-checkbox">
+                        <p-checkbox  value="Lowercase character" [(ngModel)]="lowercaseCharacter" id="la" [disabled]="true" [binary]="true"></p-checkbox>
+                        <label for="la">Lowercase character</label>
+                      </div>
+                    </div>
+                    <div class="col-12 md:col-12">
+                      <div class="field-checkbox">
+                        <p-checkbox  value="Number char" [(ngModel)]="numberchar" id="la" [disabled]="true" [binary]="true"></p-checkbox>
+                        <label for="nb">Number</label>
+                      </div>
+                    </div>
+                    <div class="col-12 md:col-12">
+                      <div class="field-checkbox">
+                        <p-checkbox  value="Non alphanumeric (!@#$% etc)" [(ngModel)]="symbol" id="sy" [disabled]="true" [binary]="true"></p-checkbox>
+                        <label for="sy">Non alphanumeric (!@#$% etc)</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex align-items-center justify-content-between mb-5 gap-5">
+                 </div>
+
+                  <button pButton pRipple label="Sign Up" class="w-full p-3 text-xl" (click)="registerUser()" [disabled]="!isInputValid"></button>
+                  <p-messages [value]="msgs"></p-messages>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
