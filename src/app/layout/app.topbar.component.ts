@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem } from 'primeng/api';
 import { LayoutService } from "./service/app.layout.service";
+import { LoginService } from '../login/login.service';
 
 @Component({
     selector: 'app-topbar',
@@ -16,5 +17,24 @@ export class AppTopBarComponent {
 
     @ViewChild('topbarmenu') menu!: ElementRef;
 
-    constructor(public layoutService: LayoutService) { }
+    constructor(public layoutService: LayoutService,private loginService: LoginService,private confirmationService: ConfirmationService) { }
+
+    confirmLogoff(event: Event) {
+      this.confirmationService.confirm({
+          key: 'confirmLogoff',
+          target: event.target || new EventTarget,
+          message: 'Are you sure that you want to logOff?',
+          icon: 'pi pi-exclamation-triangle',
+          accept: () => {
+              this.logOff();
+          },
+          reject: () => {
+
+          }
+      });
+  }
+
+    logOff(){
+      this.loginService.logoff();
+    }
 }

@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
-  userApi:"https://localhost:7016/"
+  userApi:"https://localhost:7016/",
+  userApidoman:"localhost:7016",
+  appApi:"https://localhost:7149/",
+  appApiDoman:"localhost:7149"
 };
 
 /*
