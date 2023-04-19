@@ -16,8 +16,8 @@ export class WConfigureService {
 
   configure(number:string): Observable<ApiResponse>{
     const url = `${environment.appApi}${this.configureEndpoint}`;
-    const body = { number };
-    return this.http.get<ApiResponse>(url, { params: body }).pipe(
+    const body = { number:number };
+    return this.http.post<ApiResponse>(url, body).pipe(
       map(response => response)
     );
   }

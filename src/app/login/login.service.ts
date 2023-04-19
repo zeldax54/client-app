@@ -29,6 +29,7 @@ export class LoginService {
     this.router.navigate(['/login']);
   }
 
+  //Agregar una condicion para saber si es admin
   async isLoggedIn(): Promise<boolean> {
     return this.jwtHelper.isTokenExpired();
   }

@@ -30,7 +30,7 @@ export class AppMenuComponent implements OnInit {
                 {
                     label: 'WhatsApp Senders Configure',
                     icon: 'pi pi-fw pi-whatsapp',
-                    routerLink: ['/configure']
+                    routerLink: ['/configure/number']
                 }
             ]
         },

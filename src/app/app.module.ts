@@ -12,6 +12,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule } from "@angular/common/http";
 import { ConfigureModule } from './configure/configure.module';
+import { NumberModule } from './configure/steps/number/number.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ConfigureModule } from './configure/configure.module';
     LoginModule,
     RegisterModule,
     ConfigureModule,
+    NumberModule,
 
 
     HttpClientModule,
