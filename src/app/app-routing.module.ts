@@ -7,13 +7,17 @@ import { ConfigureComponent } from './configure/configure.component';
 import { NumberComponent } from './configure/steps/number/number.component';
 import { QrcodeComponent } from './configure/steps/qrcode/qrcode.component';
 import { ResultComponent } from './configure/steps/result/result.component';
+import { AdminactionsComponent } from './adminactions/adminactions.component';
 
 const routes: Routes = [
   //{ path: '', redirectTo: '/home', pathMatch: 'full' },
   //{ path: '**', redirectTo: '/home', pathMatch: 'full' }, // Ruta para manejar rutas no encontradas
 
   { path: '', component: AppLayoutComponent,canActivate: [AuthGuard],
-    children:[{path: 'home',component:HomeComponent, canActivate: [AuthGuard]},]
+    children:[
+      {path: 'home',component:HomeComponent, canActivate: [AuthGuard]},
+      {path: 'adminactions',component:AdminactionsComponent, canActivate: [AuthGuard]}
+    ]
   },
 
   { path: '', component: AppLayoutComponent,canActivate: [AuthGuard],

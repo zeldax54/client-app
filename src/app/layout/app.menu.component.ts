@@ -35,6 +35,17 @@ export class AppMenuComponent implements OnInit {
             ]
         },
 
+        {
+          label: 'Admin Actions',
+          items: [
+              {
+                  label: 'Admin Actions',
+                  icon: 'pi pi-fw pi-lock',
+                  routerLink: ['/adminactions']
+              }
+          ]
+      }
+
     ];
     }
 }

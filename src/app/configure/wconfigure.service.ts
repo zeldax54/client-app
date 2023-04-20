@@ -11,6 +11,8 @@ import { environment } from 'src/environments/environment';
 export class WConfigureService {
 
   configureEndpoint:string = 'whatsapp/configure';
+  cleanEndpoint:string = 'whatsapp/cleanbuild';
+
 
   constructor(private http: HttpClient) { }
 
@@ -18,6 +20,23 @@ export class WConfigureService {
     const url = `${environment.appApi}${this.configureEndpoint}`;
     const body = { number:number };
     return this.http.post<ApiResponse>(url, body).pipe(
+      map(response => response)
+    );
+  }
+
+  clean(): Observable<ApiResponse>{
+    const url = `${environment.appApi}${this.cleanEndpoint}`;
+
+    return this.http.get<ApiResponse>(url).pipe(
+      map(response => response)
+    );
+  }
+
+  testUser(){
+
+    const url = `${environment.userApi}User/UserInfo`;
+
+    return this.http.get<ApiResponse>(url).pipe(
       map(response => response)
     );
   }

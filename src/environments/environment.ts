@@ -7,7 +7,8 @@ export const environment = {
   userApi:"https://localhost:7016/",
   userApidoman:"localhost:7016",
   appApi:"https://localhost:7149/",
-  appApiDoman:"localhost:7149"
+  appApiDoman:"localhost:7149",
+  notifierUrl:"https://localhost:7149/notifier"
 };
 
 /*

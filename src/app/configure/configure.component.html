@@ -1,15 +1,13 @@
 <div class="grid p-fluid">
 <div class="col-12">
   <div class="card card-w-title flex flex-wrap">
-      <div class="col-12 md:col-8 h-full">
+      <div class="col-12 md:col-12 h-full">
           <h5>Configuration</h5>
           <p-tabMenu styleClass="mb-5" [model]="routeItems" [activeItem]="activeItem"></p-tabMenu>
-
-          <h5>Steps</h5>
-          <p-steps [model]="routeItems" styleClass="mt-5"  [readonly]="true"></p-steps>
-      </div>
-      <div class="col-12 md:col-4 mt-5 md:mt-0">
-          <router-outlet></router-outlet>
+        <div class="">
+            <router-outlet></router-outlet>
+        </div>
+        <p-steps [model]="routeItems" styleClass="mt-5"  [readonly]="true"></p-steps>
       </div>
   </div>
 </div>

@@ -15,7 +15,7 @@ export class ConfigureComponent implements OnInit {
   activeItem: MenuItem ={};
   idFrozen: boolean = false;
 
-  constructor(public layoutService: LayoutService, private configureService: WConfigureService,private router:Router){
+  constructor(public layoutService: LayoutService,private router:Router){
 
   }
   ngOnInit(): void {
@@ -26,11 +26,5 @@ export class ConfigureComponent implements OnInit {
      ];
      this.activeItem = this.routeItems[0];
      this.router.navigate(['/configure/number']);
-  }
-
-  configure(){
-    this.configureService.configure('0018137096526').pipe().subscribe(response=>{
-      console.log(response);
-    });
   }
 }
