@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
+import { SpinnerService } from 'src/app/shared/spinner/spinner.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -11,8 +12,9 @@ export class QrcodeComponent implements OnInit {
 
   private hubConnection: signalR.HubConnection;
   public base64Image : string = '';
+  title:string = 'Please Scan QR code below';
 
-  constructor(){
+  constructor(private spinnerService : SpinnerService){
     this.hubConnection = new signalR.HubConnectionBuilder()
     .withUrl(environment.notifierUrl)
     .build();
@@ -23,6 +25,11 @@ export class QrcodeComponent implements OnInit {
 
   ngOnInit(): void {
     this.hubConnection.on('RegistrationQr', (base64: string) => {
+      this.base64Image = base64;
+      this.spinnerService.hide();
+    });
+    this.hubConnection.on('RegistrationEndTest', (base64: string) => {
+      this.title = 'Process End';
       this.base64Image = base64;
     });
   }

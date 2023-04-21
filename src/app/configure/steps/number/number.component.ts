@@ -13,6 +13,10 @@ export class NumberComponent implements OnInit {
 
   numbervalid:boolean = false;
   number:string = '0018137096526';
+  waitForQRTime:string = '15';
+  waitForEndTime:string = '15';
+
+
 
 
   constructor(private service: MessageService,private router: Router,private configureService : WConfigureService){
@@ -33,7 +37,7 @@ export class NumberComponent implements OnInit {
   }
 
   configure(){
-    this.configureService.configure(this.number).pipe().subscribe(response=>{
+    this.configureService.configure(this.number,this.waitForQRTime,this.waitForEndTime).pipe().subscribe(response=>{
       console.log(response);
     });
   }

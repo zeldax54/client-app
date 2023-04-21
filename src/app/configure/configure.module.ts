@@ -6,6 +6,9 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { StepsModule } from 'primeng/steps';
 import { TableModule } from 'primeng/table';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ButtonModule } from 'primeng/button';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [ConfigureComponent],
@@ -15,7 +18,10 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     TabMenuModule,
 		StepsModule,
     TableModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    ButtonModule,
+    ConfirmPopupModule,
+    ToastModule
 
   ]
 })

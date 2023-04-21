@@ -5,7 +5,9 @@
 			<h5>Sender Number</h5>
 			<div class="p-formgrid grid">
 				<div class="field col">
-        <input type="text" [(ngModel)]="number" pInputText pAutoFocus [autofocus]="true" required placeholder="#"/><br><br>
+        <input type="text" [(ngModel)]="number" pInputText pAutoFocus [autofocus]="true" required placeholder="#"/><br>
+        <input type="text" [(ngModel)]="waitForQRTime" pInputText pAutoFocus [autofocus]="true" required placeholder="Wait for QR Time"/><br>
+        <input type="text" [(ngModel)]="waitForEndTime" pInputText pAutoFocus [autofocus]="true" required placeholder="Wait for End Time"/><br><br>
         <button pButton pRipple type="button" label="Start Register" class="p-button-raised p-button-secondary" (click)="startRegister()"></button>
 				</div>
 			</div>

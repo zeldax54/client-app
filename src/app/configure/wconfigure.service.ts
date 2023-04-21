@@ -12,13 +12,17 @@ export class WConfigureService {
 
   configureEndpoint:string = 'whatsapp/configure';
   cleanEndpoint:string = 'whatsapp/cleanbuild';
+  listEndpoint:string = 'whatsapp/configurelist';
+  removeRegisterEndpoint:string = 'whatsapp/removeregister';
+
+
 
 
   constructor(private http: HttpClient) { }
 
-  configure(number:string): Observable<ApiResponse>{
+  configure(number:string,waitForQR:string,waitForEnd:string): Observable<ApiResponse>{
     const url = `${environment.appApi}${this.configureEndpoint}`;
-    const body = { number:number };
+    const body = { number:number,waitforQRTime:waitForQR,waitforEndTime:waitForEnd };
     return this.http.post<ApiResponse>(url, body).pipe(
       map(response => response)
     );
@@ -31,6 +35,24 @@ export class WConfigureService {
       map(response => response)
     );
   }
+
+  list(): Observable<ApiResponse>{
+    const url = `${environment.appApi}${this.listEndpoint}`;
+
+    return this.http.get<ApiResponse>(url).pipe(
+      map(response => response)
+    );
+  }
+
+  removeRegister(id:Number){
+    const url = `${environment.appApi}${this.removeRegisterEndpoint}`;
+    const body = { id:id};
+    return this.http.post<ApiResponse>(url, body).pipe(
+      map(response => response)
+    );
+  }
+
+
 
   testUser(){
 

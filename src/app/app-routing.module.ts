@@ -6,7 +6,6 @@ import { AuthGuard } from './guards/auth.guard ';
 import { ConfigureComponent } from './configure/configure.component';
 import { NumberComponent } from './configure/steps/number/number.component';
 import { QrcodeComponent } from './configure/steps/qrcode/qrcode.component';
-import { ResultComponent } from './configure/steps/result/result.component';
 import { AdminactionsComponent } from './adminactions/adminactions.component';
 
 const routes: Routes = [
@@ -27,7 +26,6 @@ const routes: Routes = [
       [
        { path: 'number',component:NumberComponent, pathMatch: 'full' },
        { path: 'qrcode',component:QrcodeComponent, pathMatch: 'full' },
-       { path: 'result',component:ResultComponent, pathMatch: 'full' },
       ]
 
     },]

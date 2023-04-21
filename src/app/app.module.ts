@@ -14,7 +14,6 @@ import { HttpClientModule } from "@angular/common/http";
 import { ConfigureModule } from './configure/configure.module';
 import { NumberModule } from './configure/steps/number/number.module';
 import { QRCodeModule } from './configure/steps/qrcode/qrcode.module';
-import { AdminactionsComponent } from './adminactions/adminactions.component';
 import { AdminactionModule } from './adminactions/adminactions.module';
 
 @NgModule({
