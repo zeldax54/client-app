@@ -27,7 +27,8 @@ import { ConfirmationService } from 'primeng/api';
         AppFooterComponent,
         AppMenuComponent,
         AppSidebarComponent,
-        AppLayoutComponent,
+        AppLayoutComponent
+
     ],
     imports: [
         BrowserModule,

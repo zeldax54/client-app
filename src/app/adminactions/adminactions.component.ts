@@ -48,7 +48,6 @@ clean(){
             this.clean();
         },
         reject: () => {
-
         }
     });
 }

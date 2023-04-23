@@ -5,6 +5,7 @@ import { Observable, map } from 'rxjs';
 import { IdentityResponse } from 'src/Models/identityresponse';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
+import { SessiontimeService } from '../shared/sessiontime/sessiontime.service';
 
 
 @Injectable({
@@ -13,6 +14,7 @@ import { Router } from '@angular/router';
 export class LoginService {
 
   loginEndpint:string = "user/login";
+  refreshEndpoint:string = "identity/Tokenrefresh";
 
   constructor(private http: HttpClient,public jwtHelper: JwtHelperService,private router: Router) { }
 
@@ -24,9 +26,17 @@ export class LoginService {
     );
   }
 
-  logoff() {
+  logoff(){
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
+  }
+
+  refreshToken(){
+    const url = `${environment.userApi}${this.refreshEndpoint}`;
+    const body = { token:localStorage.getItem('token'), role:'Admin' };
+    return this.http.post<IdentityResponse>(url,body).pipe(
+      map(response => response)
+    );
   }
 
   //Agregar una condicion para saber si es admin

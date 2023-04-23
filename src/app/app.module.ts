@@ -20,6 +20,7 @@ import { AdminactionModule } from './adminactions/adminactions.module';
   declarations: [
     AppComponent,
     SpinnerComponent
+
   ],
   imports: [
     BrowserModule,

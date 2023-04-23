@@ -5,6 +5,7 @@ import { catchError, throwError } from 'rxjs';
 import { IdentityResponse } from 'src/Models/identityresponse';
 import { Message } from 'primeng/api';
 import { Router } from '@angular/router';
+import { SessiontimeService } from '../shared/sessiontime/sessiontime.service';
 
 @Component({
   selector: 'app-login',
@@ -28,16 +29,17 @@ export class LoginComponent implements OnInit{
   email!:string;
   msgs: Message[] = [];
 
-  constructor(public layoutService: LayoutService,private loginService:LoginService,private router:Router){
+  constructor(public layoutService: LayoutService,private loginService:LoginService,private router:Router, private sessionTimerService : SessiontimeService){
   }
   ngOnInit(): void {
+  this.sessionTimerService.stopAllTimers();
   }
 
   login(){
     this.loginService.login(this.email,this.password).pipe(
       catchError((error) => {
         this.msgs = [];
-        this.msgs.push({ severity: 'error', summary: 'Error', detail: 'Cnx error' });
+        this.msgs.push({ severity: 'info', summary: 'Error', detail: '' });
         return throwError(()=>{new Error(error)});
       })
     )
