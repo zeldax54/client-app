@@ -5,7 +5,6 @@ import { Observable, map } from 'rxjs';
 import { IdentityResponse } from 'src/Models/identityresponse';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
-import { SessiontimeService } from '../shared/sessiontime/sessiontime.service';
 
 
 @Injectable({
@@ -28,6 +27,7 @@ export class LoginService {
 
   logoff(){
     localStorage.removeItem('token');
+    localStorage.removeItem('nextrefresh');
     this.router.navigate(['/login']);
   }
 

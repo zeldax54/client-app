@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../layout/service/app.layout.service';
+import { SessiontimeService } from '../shared/sessiontime/sessiontime.service';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +9,10 @@ import { LayoutService } from '../layout/service/app.layout.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public layoutService: LayoutService) { }
+  constructor(public layoutService: LayoutService,private sessionTimerService : SessiontimeService) { }
 
   ngOnInit(): void {
+    this.sessionTimerService.start();
   }
 
 }

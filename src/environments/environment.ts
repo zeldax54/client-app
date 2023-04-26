@@ -4,16 +4,22 @@
 
 export const environment = {
   production: false,
+
   userApi:"https://localhost:7016/",
   userApidoman:"localhost:7016",
-  appApi:"https://localhost:7149/",
-  appApiDoman:"localhost:7149",
-  notifierUrl:"https://localhost:7149/notifier",
-  refresherTime:25,//minutes
-  logtimeUntilRefresh:true,
-  iddleTime:15,
-  logTimeUntilIddle:false
+
+  appApi:"http://localhost:5000/",
+  appApiDoman:"localhost:5000",
+  notifierUrl:"http://localhost:5000/notifier",
+
+  refresherTime:15,//minutes
+  logtimeUntilRefresh:false,
+
+  iddleTime:1,
+  iddleFinal:1,
+  logIddleTimers:true
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file
