@@ -15,11 +15,15 @@ import { ConfigureModule } from './configure/configure.module';
 import { NumberModule } from './configure/steps/number/number.module';
 import { QRCodeModule } from './configure/steps/qrcode/qrcode.module';
 import { AdminactionModule } from './adminactions/adminactions.module';
+import { SessionTimeComponent } from './shared/sessiontime/sessiontime.component';
+import { ButtonModule } from 'primeng/button';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    SessionTimeComponent
 
   ],
   imports: [
@@ -32,7 +36,7 @@ import { AdminactionModule } from './adminactions/adminactions.module';
     NumberModule,
     QRCodeModule,
     AdminactionModule,
-
+    ButtonModule,
 
     HttpClientModule,
     JwtModule.forRoot({

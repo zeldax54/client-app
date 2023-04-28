@@ -9,10 +9,9 @@ import { SessiontimeService } from '../shared/sessiontime/sessiontime.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public layoutService: LayoutService,private sessionTimerService : SessiontimeService) { }
+  constructor(public layoutService: LayoutService) { }
 
   ngOnInit(): void {
-    this.sessionTimerService.start();
   }
 
 }

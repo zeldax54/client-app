@@ -8,9 +8,9 @@ export const environment = {
   userApi:"https://localhost:7016/",
   userApidoman:"localhost:7016",
 
-  appApi:"http://localhost:5000/",
-  appApiDoman:"localhost:5000",
-  notifierUrl:"http://localhost:5000/notifier",
+  appApi:"https://localhost:7149/",
+  appApiDoman:"localhost:7149",
+  notifierUrl:"https://localhost:7149/notifier",
 
   refresherTime:15,//minutes
   logtimeUntilRefresh:false,

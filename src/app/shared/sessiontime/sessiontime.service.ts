@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { LoginService } from 'src/app/login/login.service';
 import { environment } from 'src/environments/environment';
 import { Workerinput,Order,EventMessage } from "src/Models/worker.models";
@@ -11,10 +12,21 @@ export class SessiontimeService {
   testinguing : string = '';
   events = ['scroll', 'keydown',"click"];
   worker : Worker|any;
+  isfinal:boolean = false;
+
+  isFinalShow$ = new Subject<boolean>;
+  endTime$ = new Subject<number>;
 
 
-   constructor(private loginService:LoginService) {
-   }
+  showFinal():void {
+   this.isFinalShow$.next(true);
+  }
+
+  hideFinal():void {
+   this.isFinalShow$.next(false);
+  }
+
+   constructor(private loginService:LoginService) { }
 
    stopAllTimers(){
     if(this.worker != undefined)
@@ -25,6 +37,9 @@ export class SessiontimeService {
 
       if(typeof Worker !== 'undefined')
       {
+
+        this.showFinal();
+
         this.stopAllTimers();
         console.log('Stating worker')
         let that = this;
@@ -37,36 +52,41 @@ export class SessiontimeService {
         this.worker = new Worker(new URL('../../app.worker.ts', import.meta.url), { type: 'module' });
         let minutesUntilNextRefresh = this.nextRefreshTime() * 60;
         this.worker.postMessage({ order:Order.startRefresher, refreshCounter : minutesUntilNextRefresh });
-        this.worker.postMessage({ order:Order.startIddle, iddleCounter : environment.iddleTime * 60,finalCounter:environment.iddleFinal * 60 });
+        this.worker.postMessage({ order:Order.startIddle, iddleCounter : environment.iddleTime * 60 });
         this.evaluateSession();
       }
-      else{
+      else
         console.log("Worker are not supported in this browser");
-      }
-
-
-   }
+    }
 
    evaluateSession()
    {
      this.worker.onmessage = (message:any)=>{
-       if(message.data.event == EventMessage.tokenRefresh){
+       if(message.data.event == EventMessage.tokenRefresh)
         this.refreshToken();
+
+        if(message.data.event == EventMessage.iddleStart){
+        this.worker.postMessage({ order:Order.startFinal,finalCounter:environment.iddleFinal * 60});
+        this.isfinal = true;
        }
-       if(message.data.event == EventMessage.iddleStart){
-        alert('manda ventana bloqueada iddlestart');
-       }
+
        if(message.data.event == EventMessage.iddlefinalStart)
-       {
-        this.loginService.logoff();
-       }
+         this.loginService.logoff();
+
+         if(message.data.event == EventMessage.finishTick)
+           this.endTime$.next(message.data.seconds);
      }
    }
 
+   stopFinal(){
+    this.isfinal = false;
+    this.resetIddle();
+   }
 
 
   resetIddle(){
-    this.worker.postMessage({ order:Order.resetIdle,iddleCounter : environment.iddleTime * 60,finalCounter:environment.iddleFinal * 60});
+    if(!this.isfinal)
+       this.worker.postMessage({ order:Order.resetIdle,iddleCounter : environment.iddleTime * 60,finalCounter:environment.iddleFinal * 60});
   }
 
    nextRefreshTime() : number {

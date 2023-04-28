@@ -9,13 +9,16 @@ export enum Order {
   startRefresher = "startRefresher",
 
   startIddle = "startIddle",
+  stopIddle = "stopIddle",
   resetIdle = "reserIddle",
-
-  stopAllTimers = "stopAllTimers"
+  stopAllTimers = "stopAllTimers",
+  startFinal = "startFinal"
 }
 
 export enum EventMessage {
   iddleStart = "iddleStart",
   iddlefinalStart = "iddlefinalStart",
-  tokenRefresh = "TokenRefresh"
+  tokenRefresh = "TokenRefresh",
+  finishTick = "finishTick",
+
 }
