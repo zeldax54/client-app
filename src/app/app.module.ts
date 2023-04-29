@@ -11,12 +11,9 @@ import { SpinnerInterceptor } from './shared/spinner/spinner.interceptor';
 import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule } from "@angular/common/http";
-import { ConfigureModule } from './configure/configure.module';
-import { NumberModule } from './configure/steps/number/number.module';
-import { QRCodeModule } from './configure/steps/qrcode/qrcode.module';
-import { AdminactionModule } from './adminactions/adminactions.module';
 import { SessionTimeComponent } from './shared/sessiontime/sessiontime.component';
 import { ButtonModule } from 'primeng/button';
+import { PhoneBookModule } from './phonebook/phonebook.module';
 
 
 @NgModule({
@@ -25,6 +22,7 @@ import { ButtonModule } from 'primeng/button';
     SpinnerComponent,
     SessionTimeComponent
 
+
   ],
   imports: [
     BrowserModule,
@@ -32,11 +30,8 @@ import { ButtonModule } from 'primeng/button';
     AppLayoutModule,
     LoginModule,
     RegisterModule,
-    ConfigureModule,
-    NumberModule,
-    QRCodeModule,
-    AdminactionModule,
     ButtonModule,
+    PhoneBookModule,
 
     HttpClientModule,
     JwtModule.forRoot({

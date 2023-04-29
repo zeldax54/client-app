@@ -19,7 +19,7 @@ export class SessionTimeComponent {
     this.endTime$.subscribe(value=>{
       if(value>60){
         this.description = 'minutes.'
-        value = value/60;
+        value = Math.floor(value/60);
       }else
         this.description = 'seconds.'
 

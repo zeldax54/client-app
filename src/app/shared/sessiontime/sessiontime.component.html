@@ -1,10 +1,10 @@
 <div *ngIf="isFinalShow$ | async" class="overlayspinner">
   <div class="card">
 
-    <h5>Your session will expire in {{ isFinalValue}} {{description}}</h5>
-    <div class="flex flex-wrap gap-2">
+    <h5 i18n>Your session will expire in {{ isFinalValue}} {{description}}</h5>
+    <div  class="flex flex-wrap gap-2">
       <button pButton pRipple type="button" label="Log Off" (click)="logOff()" class="p-button-secondary"></button>
-      <button pButton pRipple type="button" label="Continue Working" (click)="continue()"></button>
+      <button pButton pRipple type="button" label="Continue Working" (click)="continue()" class="p-button-secondary"></button>
     </div>
   </div>
  </div>

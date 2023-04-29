@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NumberComponent } from './number.component';
-
+import { PhonebookComponent } from './phonebook.component';
 
 const routes: Routes = [
-  { path: 'number', component: NumberComponent },
+  { path: '', component: PhonebookComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class NumberRoutingModule { }
+export class PhoneBookRoutingModule {
+ }

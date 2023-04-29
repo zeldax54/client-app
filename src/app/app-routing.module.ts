@@ -3,10 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AppLayoutComponent } from './layout/app.layout.component';
 import { AuthGuard } from './guards/auth.guard ';
-import { ConfigureComponent } from './configure/configure.component';
-import { NumberComponent } from './configure/steps/number/number.component';
-import { QrcodeComponent } from './configure/steps/qrcode/qrcode.component';
-import { AdminactionsComponent } from './adminactions/adminactions.component';
+import { PhonebookComponent } from './phonebook/phonebook.component';
+
 
 const routes: Routes = [
   //{ path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -15,20 +13,9 @@ const routes: Routes = [
   { path: '', component: AppLayoutComponent,canActivate: [AuthGuard],
     children:[
       {path: 'home',component:HomeComponent, canActivate: [AuthGuard]},
-      {path: 'adminactions',component:AdminactionsComponent, canActivate: [AuthGuard]}
+      {path: 'phonebook',component:PhonebookComponent, canActivate: [AuthGuard]},
+
     ]
-  },
-
-  { path: '', component: AppLayoutComponent,canActivate: [AuthGuard],
-    children:[{
-      path: 'configure',component:ConfigureComponent, canActivate: [AuthGuard],
-      children:
-      [
-       { path: 'number',component:NumberComponent, pathMatch: 'full' },
-       { path: 'qrcode',component:QrcodeComponent, pathMatch: 'full' },
-      ]
-
-    },]
   },
 
 

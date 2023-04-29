@@ -33,13 +33,12 @@ export class LoginService {
 
   refreshToken(){
     const url = `${environment.userApi}${this.refreshEndpoint}`;
-    const body = { token:localStorage.getItem('token'), role:'Admin' };
+    const body = { token:localStorage.getItem('token'), role:'User' };
     return this.http.post<IdentityResponse>(url,body).pipe(
       map(response => response)
     );
   }
 
-  //Agregar una condicion para saber si es admin
   async isLoggedIn(): Promise<boolean> {
     return this.jwtHelper.isTokenExpired();
   }

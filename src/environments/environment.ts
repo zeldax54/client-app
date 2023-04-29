@@ -15,8 +15,8 @@ export const environment = {
   refresherTime:20,//minutes
   logtimeUntilRefresh:false,
 
-  iddleTime:5,
-  iddleFinal:1,
+  iddleTime:10,
+  iddleFinal:5,
   logIddleTimers:false
 };
 
