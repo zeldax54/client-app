@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { LoginService } from 'src/app/login/login.service';
 import { environment } from 'src/environments/environment';
 import { Workerinput,Order,EventMessage } from "src/Models/worker.models";
@@ -13,9 +13,11 @@ export class SessiontimeService {
   events = ['scroll', 'keydown',"click"];
   worker : Worker|any;
   isfinal:boolean = false;
+  stopAll: boolean = false;
 
   isFinalShow$ = new Subject<boolean>;
   endTime$ = new Subject<number>;
+
 
 
   showFinal():void {
@@ -37,10 +39,9 @@ export class SessiontimeService {
 
       if(typeof Worker !== 'undefined')
       {
-
-        this.showFinal();
-
+        this.stopAll = false;
         this.stopAllTimers();
+        this.isfinal = false;
         console.log('Stating worker')
         let that = this;
         this.events.forEach(function(event){
@@ -50,10 +51,16 @@ export class SessiontimeService {
         });
 
         this.worker = new Worker(new URL('../../app.worker.ts', import.meta.url), { type: 'module' });
-        let minutesUntilNextRefresh = this.nextRefreshTime() * 60;
-        this.worker.postMessage({ order:Order.startRefresher, refreshCounter : minutesUntilNextRefresh });
-        this.worker.postMessage({ order:Order.startIddle, iddleCounter : environment.iddleTime * 60 });
-        this.evaluateSession();
+        this.loginService.isLoggedIn().then(isLogginExpired=>{
+          if(isLogginExpired == false)
+          {
+            let minutesUntilNextRefresh = this.nextRefreshTime() * 60;
+            console.log('minutesUntilNextRefresh',minutesUntilNextRefresh)
+            this.worker.postMessage({ order:Order.startRefresher, refreshCounter : minutesUntilNextRefresh });
+            this.worker.postMessage({ order:Order.startIddle, iddleCounter : environment.iddleTime * 60 });
+            this.evaluateSession();
+          }
+        })
       }
       else
         console.log("Worker are not supported in this browser");
@@ -63,29 +70,41 @@ export class SessiontimeService {
    {
      this.worker.onmessage = (message:any)=>{
        if(message.data.event == EventMessage.tokenRefresh)
-        this.refreshToken();
+          this.refreshToken();
 
         if(message.data.event == EventMessage.iddleStart){
         this.worker.postMessage({ order:Order.startFinal,finalCounter:environment.iddleFinal * 60});
         this.isfinal = true;
+        this.showFinal();
        }
 
        if(message.data.event == EventMessage.iddlefinalStart)
-         this.loginService.logoff();
+          this.endSession();
 
-         if(message.data.event == EventMessage.finishTick)
-           this.endTime$.next(message.data.seconds);
+       if(message.data.event == EventMessage.finishTick)
+          this.endTime$.next(message.data.seconds);
      }
    }
 
-   stopFinal(){
-    this.isfinal = false;
-    this.resetIddle();
+   endSession(){
+    this.stopAll = true;
+    this.stopAllTimers();
+    this.hideFinal();
+    localStorage.removeItem('nextrefresh');
+    this.loginService.logoff();
+   }
+
+   resetSession(){
+    this.stopAll = false;
+    this.stopAllTimers();
+    this.start();
+    this.refreshToken();
+    this.hideFinal();
    }
 
 
   resetIddle(){
-    if(!this.isfinal)
+    if(!this.isfinal && !this.stopAll)
        this.worker.postMessage({ order:Order.resetIdle,iddleCounter : environment.iddleTime * 60,finalCounter:environment.iddleFinal * 60});
   }
 
@@ -103,7 +122,8 @@ export class SessiontimeService {
     else{
       let timetoReach = new Date(stringsaved);
       let timeDifferenceInMilliseconds = timetoReach.getTime() - nowUtcDate.getTime();
-      return Math.floor(timeDifferenceInMilliseconds / (1000 * 60));
+      const mins = Math.floor(timeDifferenceInMilliseconds / (1000 * 60))
+      return mins == 0 ? 1 : mins;
     }
    }
 

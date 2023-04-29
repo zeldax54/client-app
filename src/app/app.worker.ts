@@ -19,23 +19,23 @@ class Job {
 
   startRefresher(refresherTime: number) {
 
-    this.refresherCounterInterval = setInterval(_ => {
+      clearInterval(this.refresherCounterInterval);
+      this.refresherCounterInterval = setInterval(_ => {
 
-      this.refresherCounter += 1;
+        this.refresherCounter += 1;
 
-      let untilRefresh = refresherTime - this.refresherCounter;
+        let untilRefresh = refresherTime - this.refresherCounter;
 
-      if(environment.logtimeUntilRefresh)
-         console.log('seconds ultil refresh',untilRefresh)
+        if(environment.logtimeUntilRefresh)
+           console.log('seconds ultil refresh id '+this.refresherCounterInterval+':',untilRefresh)
 
-      if(untilRefresh <= 0){
-        this.refresherCounter = 0;
-        clearInterval(this.refresherCounterInterval);
-        postMessage({ event: EventMessage.tokenRefresh, seconds: this.refresherCounter });
+        if(untilRefresh <= 0){
+          this.refresherCounter = 0;
+          clearInterval(this.refresherCounterInterval);
+          postMessage({ event: EventMessage.tokenRefresh, seconds: this.refresherCounter });
+        }
 
-      }
-
-    }, 1000);
+      }, 1000);
   }
 
   startIddle(iddleTime: number) {
@@ -88,10 +88,13 @@ class Job {
 
   stopAllTimers(){
     clearInterval(this.refresherCounterInterval);
+    this.refresherCounterInterval = null;
     this.refresherCounter = 0;
 
     clearInterval(this.IddleCounterInterval);
+    this.IddleCounterInterval = null;
     clearInterval(this.IddleFinalCounterInterval);
+    this.IddleFinalCounterInterval = null;
     this.IddleCounter = 0;
     this.IddleFinalCounter = 0;
   }

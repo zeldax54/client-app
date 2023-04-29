@@ -8,7 +8,5 @@ import { SessiontimeService } from '../shared/sessiontime/sessiontime.service';
 })
 export class AppFooterComponent  {
 
-  constructor(public layoutService: LayoutService,private sessionTimeService: SessiontimeService) {
-      this.sessionTimeService.start();
-     }
+  constructor(public layoutService: LayoutService) { }
 }

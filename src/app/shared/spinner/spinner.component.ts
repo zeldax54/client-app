@@ -10,6 +10,5 @@ export class SpinnerComponent {
 
   isLoading$ = this.spinnerService.isLoading$;
   constructor(private spinnerService:SpinnerService){
-
   }
 }

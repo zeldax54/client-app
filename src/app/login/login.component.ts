@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit{
   constructor(public layoutService: LayoutService,private loginService:LoginService,private router:Router, private sessionTimerService : SessiontimeService){
   }
   ngOnInit(): void {
-  this.sessionTimerService.stopAllTimers();
+    this.sessionTimerService.stopAllTimers();
   }
 
   login(){
@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit{
      }
      if(response.statusCode == 200){
       localStorage.setItem('token',response.data)
+      this.sessionTimerService.resetSession();
       this.router.navigate(['/home']);
       }
     });

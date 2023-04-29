@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ConfirmationService, MenuItem } from 'primeng/api';
 import { LayoutService } from "./service/app.layout.service";
 import { LoginService } from '../login/login.service';
+import { SessiontimeService } from '../shared/sessiontime/sessiontime.service';
 
 @Component({
     selector: 'app-topbar',
@@ -17,7 +18,7 @@ export class AppTopBarComponent {
 
     @ViewChild('topbarmenu') menu!: ElementRef;
 
-    constructor(public layoutService: LayoutService,private loginService: LoginService,private confirmationService: ConfirmationService) { }
+    constructor(public layoutService: LayoutService,private loginService: LoginService,private confirmationService: ConfirmationService,private sessionTimeService : SessiontimeService) { }
 
     confirmLogoff(event: Event) {
       this.confirmationService.confirm({
@@ -35,6 +36,7 @@ export class AppTopBarComponent {
   }
 
     logOff(){
-      this.loginService.logoff();
+      this.sessionTimeService.endSession();
+    //  this.loginService.logoff();
     }
 }
