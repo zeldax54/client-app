@@ -42,7 +42,6 @@ export class SessiontimeService {
         this.stopAll = false;
         this.stopAllTimers();
         this.isfinal = false;
-        console.log('Stating worker')
         let that = this;
         this.events.forEach(function(event){
            document.addEventListener(event, () => {
