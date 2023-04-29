@@ -55,7 +55,6 @@ export class SessiontimeService {
           if(isLogginExpired == false)
           {
             let minutesUntilNextRefresh = this.nextRefreshTime() * 60;
-            console.log('minutesUntilNextRefresh',minutesUntilNextRefresh)
             this.worker.postMessage({ order:Order.startRefresher, refreshCounter : minutesUntilNextRefresh });
             this.worker.postMessage({ order:Order.startIddle, iddleCounter : environment.iddleTime * 60 });
             this.evaluateSession();
