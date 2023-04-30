@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { AppLayoutComponent } from './layout/app.layout.component';
 import { AuthGuard } from './guards/auth.guard ';
 import { PhonebookComponent } from './phonebook/phonebook.component';
+import { ZonesComponent } from './zones/zones.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,7 @@ const routes: Routes = [
     children:[
       {path: 'home',component:HomeComponent, canActivate: [AuthGuard]},
       {path: 'phonebook',component:PhonebookComponent, canActivate: [AuthGuard]},
-
+      {path: 'zones',component:ZonesComponent, canActivate: [AuthGuard]},
     ]
   },
 

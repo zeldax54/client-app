@@ -27,6 +27,11 @@ export class AppMenuComponent implements OnInit {
         {
             label: $localize `${'Configure'}`,
             items: [
+               {
+                    label:  $localize `${'Zones'}`,
+                    icon: 'pi pi-fw pi-bars',
+                    routerLink: ['/zones']
+                },
                 {
                     label:  $localize `${'Phonebook'}`,
                     icon: 'pi pi-fw pi-phone',
@@ -35,7 +40,7 @@ export class AppMenuComponent implements OnInit {
                 {
                   label:  $localize `${'Address Book'}`,
                   icon: 'pi pi-fw pi-envelope',
-                  routerLink: ['/configure/number']
+                  routerLink: ['/phonebook']
               }
             ]
         },

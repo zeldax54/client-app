@@ -49,7 +49,8 @@ export class LoginComponent implements OnInit{
         this.msgs.push({ severity: 'error', summary: 'Error', detail: response.errorMessage });
      }
      if(response.statusCode == 200){
-      localStorage.setItem('token',response.data)
+      localStorage.setItem('token',response.data.item1)
+      localStorage.setItem('x-nameidentifier',response.data.item2)
       this.sessionTimerService.resetSession();
       this.router.navigate(['/home']);
       }

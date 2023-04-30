@@ -1,0 +1,98 @@
+<div class="grid">
+  <div class="col-12">
+      <div class="card px-6 py-6">
+          <p-toast></p-toast>
+          <p-toolbar styleClass="mb-4">
+              <ng-template pTemplate="left">
+                  <div class="my-2">
+                      <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+                      <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"  [disabled]="!selectedZones || !selectedZones.length"></button>
+                  </div>
+              </ng-template>
+
+              <!--<ng-template pTemplate="center">
+                  <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+                  <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" ></button>
+              </ng-template>-->
+          </p-toolbar>
+
+          <p-table #dt [value]="zones" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['code','name']" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedZones" selectionMode="multiple" [rowHover]="true" dataKey="id">
+            <ng-template pTemplate="caption">
+                <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                    <h5 i18n class="m-0">Manage Zones</h5>
+                    <span class="block mt-2 md:mt-0 p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 3rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th i18n pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th>
+                    <th i18n pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                    <th i18n pSortableColumn="name">Description <p-sortIcon field="name"></p-sortIcon></th>
+
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-zone>
+                <tr>
+                    <td>
+                        <p-tableCheckbox [value]="zone"></p-tableCheckbox>
+                    </td>
+                    <td style="width:14%; min-width:10rem;"><span class="p-column-title">Code</span>
+                        {{zone.Code}}
+                    </td>
+                    <td style="width:14%; min-width:10rem;">
+                        <span class="p-column-title">Name</span>
+                        {{zone.Name}}
+                    </td>
+                    <td style="width:14%; min-width:10rem;">
+                      <span class="p-column-title">Description</span>
+                      {{zone.Description}}
+                  </td>
+                    <td>
+                        <div class="flex">
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editZone(zone)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteZone(zone)"></button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+
+        <p-dialog [(visible)]="zoneDialog" [style]="{width: '450px'}" header="{{headerTile}}" [modal]="true" class="p-fluid">
+          <ng-template pTemplate="content">
+
+
+            <div class="field">
+              <label i18n for="name">Code</label>
+              <input type="text" pInputText id="name" [(ngModel)]="zone.Code" maxlength="3" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !zone.Code}"/>
+              <small class="ng-dirty ng-invalid" *ngIf="submitted && !zone.Code">Code is required.</small>
+          </div>
+
+              <div class="field">
+                  <label i18n for="name">Name</label>
+                  <input i18n type="text" pInputText id="name" [(ngModel)]="zone.Name" maxlength="40" required [ngClass]="{'ng-invalid ng-dirty' : submitted && !zone.Name}"/>
+                  <small i18n class="ng-dirty ng-invalid" *ngIf="submitted && !zone.Code">Name is required.</small>
+              </div>
+              <div class="field">
+                  <label i18n for="description">Description</label>
+                  <textarea id="description" pInputTextarea [(ngModel)]="zone.Description" required rows="3" cols="20"></textarea>
+              </div>
+
+          </ng-template>
+
+          <ng-template pTemplate="footer">
+              <button pButton pRipple  label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+              <button pButton pRipple  label="Save" icon="pi pi-check" class="p-button-text" (click)="saveZone()"></button>
+          </ng-template>
+      </p-dialog>
+
+      </div>
+  </div>
+</div>

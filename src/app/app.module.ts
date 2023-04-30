@@ -14,6 +14,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { SessionTimeComponent } from './shared/sessiontime/sessiontime.component';
 import { ButtonModule } from 'primeng/button';
 import { PhoneBookModule } from './phonebook/phonebook.module';
+import { ZonesModule } from './zones/zones.module';
 
 
 @NgModule({
@@ -21,8 +22,6 @@ import { PhoneBookModule } from './phonebook/phonebook.module';
     AppComponent,
     SpinnerComponent,
     SessionTimeComponent
-
-
   ],
   imports: [
     BrowserModule,
@@ -32,6 +31,7 @@ import { PhoneBookModule } from './phonebook/phonebook.module';
     RegisterModule,
     ButtonModule,
     PhoneBookModule,
+    ZonesModule,
 
     HttpClientModule,
     JwtModule.forRoot({

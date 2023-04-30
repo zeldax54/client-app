@@ -89,6 +89,7 @@ export class SessiontimeService {
     this.stopAllTimers();
     this.hideFinal();
     localStorage.removeItem('nextrefresh');
+    localStorage.removeItem('x-nameidentifier');
     this.loginService.logoff();
    }
 
