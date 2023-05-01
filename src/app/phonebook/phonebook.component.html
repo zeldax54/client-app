@@ -1,1 +1,136 @@
-<p>phonebook works!</p>
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <div class="my-2">
+            <button
+              pButton
+              pRipple
+              label="New"
+              icon="pi pi-plus"
+              class="p-button-success mr-2"
+              (click)="openNew()"
+            ></button>
+            <button
+              pButton
+              pRipple
+              label="Delete"
+              icon="pi pi-trash"
+              class="p-button-danger"
+              [disabled]="!selectedPhonebooks|| !selectedPhonebooks.length"
+              (click)="deleteSelectedPhoneBook()"
+            ></button>
+          </div>
+        </ng-template>
+
+        <!--<ng-template pTemplate="center">
+                  <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+                  <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" ></button>
+              </ng-template>-->
+      </p-toolbar>
+
+
+      <p-table #dt [value]="phonebooks" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['Name','LastName','Country','Zone']" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedPhonebooks" selectionMode="multiple" [rowHover]="true" dataKey="Id">
+        <ng-template pTemplate="caption">
+            <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                <h5 i18n class="m-0">Manage PhoneBook</h5>
+                <span class="block mt-2 md:mt-0 p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th i18n pSortableColumn="Code">Name <p-sortIcon field="Code"></p-sortIcon></th>
+                <th i18n pSortableColumn="Name">LastName <p-sortIcon field="Name"></p-sortIcon></th>
+                <th i18n pSortableColumn="Country">Country <p-sortIcon field="Country"></p-sortIcon></th>
+                <th i18n pSortableColumn="Zone">Zone <p-sortIcon field="Zone"></p-sortIcon></th>
+
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-phonebook>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="phonebook"></p-tableCheckbox>
+                </td>
+                <td style="width:14%; min-width:10rem;"><span class="p-column-title">Name</span>
+                    {{phonebook.Name}}
+                </td>
+                <td style="width:14%; min-width:10rem;">
+                    <span class="p-column-title">LastName</span>
+                    {{phonebook.LastName}}
+                </td>
+                <td style="width:14%; min-width:10rem;">
+                  <span class="p-column-title">Country</span>
+                  {{phonebook.Country}}
+              </td>
+              <td style="width:14%; min-width:10rem;">
+                <span class="p-column-title">Zone</span>
+                {{phonebook.Zone}}
+            </td>
+
+                <td>
+                    <div class="flex">
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editPhoneBook(phonebook)"></button>
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deletePhoneBook(phonebook)"></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <p-dialog [(visible)]="phonebookDialog" [style]="{width: '550px',height:'600px'}" header="{{headerTile}}" [modal]="true" class="p-fluid">
+
+      <ng-template pTemplate="content">
+
+        <div class="field">
+          <label i18n for="name">Name</label>
+          <input type="text" pInputText id="name" [(ngModel)]="phonebook.Name" maxlength="40" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !phonebook.Name}"/>
+          <small class="ng-dirty ng-invalid" *ngIf="submitted && !phonebook.Name">Code is required.</small>
+      </div>
+
+     <div class="field">
+        <label i18n for="name">LastName</label>
+        <input type="text" pInputText id="name" [(ngModel)]="phonebook.LastName" maxlength="40" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !phonebook.LastName}"/>
+        <small class="ng-dirty ng-invalid" *ngIf="submitted && !phonebook.LastName">Code is required.</small>
+     </div>
+
+
+     <div class="field">
+      <label i18n for="name">Country</label>
+      <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="Name" [filter]="true" filterBy="Name" [showClear]="true" placeholder="Select a Country">
+        <ng-template pTemplate="selectedItem">
+            <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
+                <img src="assets/images/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.Code?.toLowerCase()" style="width: 18px"/>
+                <div>{{ selectedCountry.Name }}</div>
+            </div>
+        </ng-template>
+        <ng-template let-country pTemplate="item">
+            <div class="flex align-items-center gap-2">
+                <img src="assets/images/flag/flag_placeholder.png" [class]="'flag flag-' + country.Code.toLowerCase()" style="width: 18px"/>
+                <div>{{ country.Name }}</div>
+            </div>
+        </ng-template>
+      </p-dropdown>
+     </div>
+
+
+
+  </ng-template>
+     <ng-template pTemplate="footer">
+          <button pButton pRipple  label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+          <button pButton pRipple  label="Save" icon="pi pi-check" class="p-button-text" (click)="savePhoneBook()"></button>
+      </ng-template>
+  </p-dialog>
+
+
+    </div>
+  </div>
+</div>

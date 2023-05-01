@@ -13,6 +13,10 @@ import { ZoneModel } from 'src/Models/BussinessModel/ZoneModel';
 export class ZonesService {
 
   addZoneEndpoint:string = "clientactions/addzone";
+  getZonesEndpoint:string = "clientactions/zones";
+  removeZoneEndpoint:string = "clientactions/removezone";
+  bulkRemoveZonesEndpoint:string = "clientactions/bulkzonedelete";
+
 
    constructor(private http: HttpClient) {
    }
@@ -23,5 +27,34 @@ export class ZonesService {
       map(response => response)
     );
   }
+
+  getZones(): Observable<ZoneModel[]> {
+    const url = `${environment.appApi}${this.getZonesEndpoint}`;
+    return this.http.get<ZoneModel[]>(url).pipe(
+      map(response => response)
+    );
+  }
+
+  removeZone(zoneId:number): Observable<number> {
+    const url = `${environment.appApi}${this.removeZoneEndpoint}/${zoneId}`;
+    return this.http.delete<number>(url).pipe(
+      map(response => response)
+    );
+  }
+
+  removeBulkZones(zoneIds:number[]): Observable<ZoneModel[]> {
+    const url = `${environment.appApi}${this.bulkRemoveZonesEndpoint}`;
+    const options = {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: zoneIds
+    };
+    return this.http.delete<ZoneModel[]>(url,options).pipe(
+      map(response => response)
+    );
+  }
+
+
 
 }

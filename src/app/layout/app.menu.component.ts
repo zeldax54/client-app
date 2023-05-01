@@ -36,17 +36,12 @@ export class AppMenuComponent implements OnInit {
                     label:  $localize `${'Phonebook'}`,
                     icon: 'pi pi-fw pi-phone',
                     routerLink: ['/phonebook']
-                },
-                {
-                  label:  $localize `${'Address Book'}`,
-                  icon: 'pi pi-fw pi-envelope',
-                  routerLink: ['/phonebook']
-              }
+                }
             ]
         },
 
         {
-          label: 'Admin Actions',
+          label: 'Campains',
           items: [
               {
                   label: 'Admin Actions',

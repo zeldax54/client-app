@@ -12,10 +12,10 @@ export const environment = {
   appApiDoman:"localhost:7149",
   notifierUrl:"https://localhost:7149/notifier",
 
-  refresherTime:20,//minutes
+  refresherTime:28,//minutes
   logtimeUntilRefresh:false,
 
-  iddleTime:10,
+  iddleTime:30,
   iddleFinal:5,
   logIddleTimers:false
 };
