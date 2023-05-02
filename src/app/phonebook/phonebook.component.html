@@ -86,20 +86,26 @@
         </ng-template>
     </p-table>
 
-    <p-dialog [(visible)]="phonebookDialog" [style]="{width: '550px',height:'600px'}" header="{{headerTile}}" [modal]="true" class="p-fluid">
+    <p-dialog [(visible)]="phonebookDialog" [style]="{width: '550px',height:'700px'}" header="{{headerTile}}" [modal]="true" class="p-fluid">
 
       <ng-template pTemplate="content">
 
         <div class="field">
           <label i18n for="name">Name</label>
-          <input type="text" pInputText id="name" [(ngModel)]="phonebook.Name" maxlength="40" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !phonebook.Name}"/>
-          <small class="ng-dirty ng-invalid" *ngIf="submitted && !phonebook.Name">Code is required.</small>
+          <span class="p-input-icon-left">
+						<i class="pi pi-user"></i>
+            <input type="text" pInputText id="name" [(ngModel)]="phonebook.Name" maxlength="40" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !phonebook.Name}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !phonebook.Name">Code is required.</small>
+					</span>
       </div>
 
      <div class="field">
         <label i18n for="name">LastName</label>
-        <input type="text" pInputText id="name" [(ngModel)]="phonebook.LastName" maxlength="40" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !phonebook.LastName}"/>
+        <span class="p-input-icon-left">
+          <i class="pi pi-user"></i>
+          <input type="text" pInputText id="name" [(ngModel)]="phonebook.LastName" maxlength="40" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !phonebook.LastName}"/>
         <small class="ng-dirty ng-invalid" *ngIf="submitted && !phonebook.LastName">Code is required.</small>
+        </span>
      </div>
 
 
@@ -121,7 +127,46 @@
       </p-dropdown>
      </div>
 
+     <div class="field">
+      <label i18n for="name">Zone</label>
+      <p-dropdown [options]="zones" [(ngModel)]="selectedZone" optionLabel="Name" [filter]="true" filterBy="Name" [showClear]="true" placeholder="Select a Zone">
+        <ng-template pTemplate="selectedItem">
+            <div class="flex align-items-center gap-2" *ngIf="selectedZone">
+                <div>{{ selectedZone.Name }}</div>
+            </div>
+        </ng-template>
+        <ng-template let-zone pTemplate="item">
+            <div class="flex align-items-center gap-2">
+                <div>{{ zone.Name }}</div>
+            </div>
+        </ng-template>
+      </p-dropdown>
+     </div>
 
+      <div class="field" >
+        <div class="grid">
+          <div class="md:col-4">
+          <p-dropdown  [options]="prefixs" [(ngModel)]="selectedPrefix"  [filter]="true" filterBy="CountryName" [showClear]="false">
+            <ng-template pTemplate="selectedItem">
+                <div class="flex align-items-center gap-2" *ngIf="selectedPrefix">
+                    <img src="assets/images/flag/flag_placeholder.png" [class]="'flag flag-' + selectedPrefix.CountryCode?.toLowerCase()" style="width: 18px"/>
+                    <div>+{{ selectedPrefix.Prefix }}</div>
+                </div>
+            </ng-template>
+            <ng-template let-prefix pTemplate="item">
+                <div class="flex align-items-center gap-2">
+                    <img src="assets/images/flag/flag_placeholder.png" [class]="'flag flag-' + prefix.CountryCode.toLowerCase()" style="width: 18px"/>
+                    <div>+{{ prefix.Prefix }}</div>
+                </div>
+            </ng-template>
+          </p-dropdown>
+          </div>
+          <div class="md:col-8">
+          <input type="text" [(ngModel)]="phonebook.Phone" pInputText placeholder="Phone Number" pattern="^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$" required>
+         </div>
+        </div>
+
+      </div>
 
   </ng-template>
      <ng-template pTemplate="footer">
